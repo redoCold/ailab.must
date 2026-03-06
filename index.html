@@ -72,7 +72,7 @@
             <h2 style="color: var(--accent);">Ongoing Research Themes</h2>
             <div class="card-grid">
                 <div class="info-card" onclick="openRobotDashboard()" style="cursor:pointer; border: 2px solid var(--accent);">
-                    <h3>🤖 iRobot Control Development</h3>
+                    <h3> iRobot Control Development</h3>
                     <p>Web-integrated hybrid control and vision.</p>
                 </div>
                 <div class="info-card"><h3>AI Robot Development</h3></div>
@@ -116,17 +116,34 @@
         </section>
     </main>
 
-    <div id="robotDashboard" class="modal">
+<div id="robotDashboard" class="modal">
         <div class="modal-content">
             <span style="float:right; cursor:pointer; font-size:2rem;" onclick="closeRobotDashboard()">&times;</span>
-            <h2 style="color:var(--accent);">🤖 iRobot Control</h2>
-            <div style="display:grid; grid-template-columns: 1fr 1fr; gap:20px;">
+            <h2 style="color:var(--accent);">🤖 iRobot Command Center</h2>
+            <div style="display:grid; grid-template-columns: 1fr 1.2fr; gap:20px;">
+                
                 <div class="vision-wrapper">
                     <img id="camera-stream" src="" crossorigin="anonymous" onerror="this.src='https://via.placeholder.com/480x360?text=Camera+Offline'">
+                    <canvas id="vision-canvas"></canvas>
                 </div>
+                
                 <div>
-                    <button class="btn-ctrl" style="width:100%" onclick="sendManual('forward')">▲ Move Forward</button>
-                    <div id="terminal-log" class="terminal" style="margin-top:20px;">> Offline</div>
+                    <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px;">
+                        <button id="voice-btn" class="btn-ctrl" onclick="startVoiceRecognition()">🎙️ Start Voice</button>
+                        <button class="btn-ctrl" onclick="toggleVision()" id="ai-toggle-btn" style="background:#27ae60;">Skeleton AI: ON</button>
+                    </div>
+
+                    <h4 style="text-align:center; margin: 15px 0 5px 0; color: #8892b0;">Manual Override</h4>
+                    
+                    <div style="display:grid; grid-template-columns: repeat(3, 1fr); gap:8px; max-width:150px; margin:auto;">
+                        <div></div><button class="btn-ctrl" onclick="sendManual('forward')">▲</button><div></div>
+                        <button class="btn-ctrl" onclick="sendManual('left')">◀</button>
+                        <button class="btn-ctrl" style="background:#e74c3c; border-color: red;" onclick="sendManual('stop')">■</button>
+                        <button class="btn-ctrl" onclick="sendManual('right')">▶</button>
+                        <div></div><button class="btn-ctrl" onclick="sendManual('backward')">▼</button><div></div>
+                    </div>
+
+                    <div id="terminal-log" class="terminal">> System Standby...</div>
                 </div>
             </div>
         </div>
@@ -175,3 +192,4 @@
     </script>
 </body>
 </html>
+
