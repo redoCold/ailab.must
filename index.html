@@ -10,16 +10,15 @@
         :root { --primary: #003366; --accent: #00d4ff; --dark: #0a192f; --sidebar-w: 250px; --glass: rgba(255, 255, 255, 0.05); }
         body { font-family: 'Inter', sans-serif; margin: 0; display: flex; background: var(--dark); color: #e6f1ff; height: 100vh; overflow: hidden; }
         
-        /* --- Hamburger Menu Icon --- */
+        /* Hamburger Menu Icon */
         .menu-btn {
             position: fixed; top: 20px; left: 20px; z-index: 3000;
             font-size: 1.8rem; color: var(--accent); cursor: pointer;
             background: var(--dark); padding: 5px 10px; border-radius: 5px;
             border: 1px solid rgba(0, 212, 255, 0.3); transition: 0.3s;
         }
-        .menu-btn:hover { background: var(--accent); color: var(--dark); }
 
-        /* --- Sliding Sidebar --- */
+        /* Sliding Sidebar */
         nav { 
             position: fixed; top: 0; left: calc(-1 * var(--sidebar-w)); 
             width: var(--sidebar-w); height: 100%; 
@@ -28,25 +27,25 @@
             transition: 0.4s ease-in-out; z-index: 2500;
         }
         nav.open { left: 0; }
-        
         .nav-link { padding: 15px 25px; color: #8892b0; text-decoration: none; cursor: pointer; transition: 0.3s; }
         .nav-link.active { color: var(--accent); background: rgba(0, 212, 255, 0.1); border-left: 4px solid var(--accent); }
 
-        /* Overlay when menu is open */
-        .overlay-bg {
-            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(2, 12, 27, 0.7); z-index: 2000;
-        }
+        /* Overlay */
+        .overlay-bg { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(2, 12, 27, 0.7); z-index: 2000; }
 
-        /* --- Main Content --- */
+        /* Main Content */
         main { flex: 1; overflow-y: auto; padding: 80px 40px 40px 40px; }
         .content-section { display: none; }
         .content-section.active { display: block; animation: fadeIn 0.5s; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; } }
 
-        /* Other Styles (Card Grid, Modal, Vision) remain same... */
+        /* Components */
         .card-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
         .info-card { background: var(--glass); padding: 25px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.1); margin-bottom: 20px;}
+        .student-list { list-style: none; padding: 0; color: #8892b0; }
+        .student-list li { padding: 5px 0; border-bottom: 1px solid rgba(255,255,255,0.05); }
+
+        /* Modal & Vision */
         .modal { display: none; position: fixed; z-index: 4000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(2, 12, 27, 0.95); }
         .modal-content { background: #112240; border: 1px solid var(--accent); margin: 3% auto; padding: 25px; border-radius: 15px; width: 90%; max-width: 1000px; }
         .vision-wrapper { position: relative; width: 100%; max-width: 480px; background: #000; border-radius: 10px; overflow: hidden; border: 2px solid var(--accent); }
@@ -62,9 +61,7 @@
     <div class="overlay-bg" id="menu-overlay" onclick="toggleMenu()"></div>
 
     <nav id="sidebar">
-        <div style="text-align:center; margin-bottom: 30px;">
-            <h3 style="color: var(--accent); margin:0;">AI LAB MUST</h3>
-        </div>
+        <div style="text-align:center; margin-bottom: 30px;"><h3 style="color: var(--accent); margin:0;">AI LAB MUST</h3></div>
         <a id="link-home" class="nav-link active" onclick="showSection('home')">🏠 Home & Policies</a>
         <a id="link-research" class="nav-link" onclick="showSection('research')">🔬 Research Contents</a>
         <a id="link-faculty" class="nav-link" onclick="showSection('faculty')">👨‍🏫 Faculty & Staff</a>
@@ -76,46 +73,68 @@
             <h1 style="color: var(--accent);">AI & Industry Control Laboratory</h1>
             <div class="info-card">
                 <h3>Laboratory Introduction</h3>
-                <p>Focusing on electrical system automation and modern hardware implementation.</p>
+                <p>Welcome to the AI & Industry Control Lab at MUST. Our research focuses on theoretical electrical system automation and practical, modern hardware implementation.</p>
                 <img src="aipeople.jpg" alt="Lab Team" style="width: 100%; border-radius: 8px; margin-top: 15px; border: 1px solid var(--accent);">
             </div>
             <div class="info-card">
-                <h3>Lab Policies</h3>
-                <p>• Safety protocols for high-voltage equipment.</p>
-                <p>• Respectful hardware handling and designated stations.</p>
+                <h3>Lab Policies & General Rules</h3>
+                <ul style="line-height: 1.8; color: #8892b0;">
+                    <li><strong>Safety First:</strong> High-voltage equipment and inverters must only be operated following strict safety protocols.</li>
+                    <li><strong>Equipment Usage:</strong> Hardware modules (Raspberry Pi, Sensors, iRobot) must be handled with care and returned to stations.</li>
+                    <li><strong>Data Management:</strong> All IoT and telemetry data should be routed through the lab's secure local network.</li>
+                    <li><strong>Workspace:</strong> Maintain a clean and organized environment for all ongoing research themes.</li>
+                </ul>
             </div>
         </section>
 
         <section id="research" class="content-section">
-            <h2>Research Themes</h2>
+            <h2 style="color: var(--accent);">Current Ongoing Research Themes</h2>
             <div class="card-grid">
-                <div class="info-card" onclick="openRobotDashboard()" style="cursor:pointer; border: 1px solid var(--accent);">
-                    <h3>🤖 iRobot Control</h3>
-                    <p>Hybrid voice and vision telepresence.</p>
+                <div class="info-card" onclick="openRobotDashboard()" style="cursor:pointer; border: 2px solid var(--accent); background: rgba(0, 212, 255, 0.05);">
+                    <h3>🤖 iRobot Control Development</h3>
+                    <p>Web-integrated hybrid control and computer vision telepresence.</p>
                 </div>
-                <div class="info-card"><h3>ABB Inverters</h3></div>
-                <div class="info-card"><h3>RTU540 SCADA</h3></div>
+                <div class="info-card"><h3>AI Robot Development</h3><p>Edge AI perception integration.</p></div>
+                <div class="info-card"><h3>Inverter (ABB ACS150)</h3><p>Frequency drive and motor control.</p></div>
+                <div class="info-card"><h3>RTU540 Smart Control</h3><p>Substation automation and relay protection.</p></div>
+                <div class="info-card"><h3>IoT Data Sharing</h3><p>Cloud telemetry and sensor networks.</p></div>
+                <div class="info-card"><h3>Home Automation</h3><p>Smart building energy management.</p></div>
+                <div class="info-card"><h3>Manipulator Vision</h3><p>Robotic arm kinematics and recognition.</p></div>
             </div>
-            <h3 style="margin-top: 30px;">Past Themes</h3>
-            <div class="info-card" style="opacity:0.6;"><p>• Legacy Relay Systems Analysis</p></div>
+            
+            <h2 style="color: var(--accent); margin-top: 50px;">Past Research Themes</h2>
+            <div class="info-card" style="opacity: 0.6;">
+                <p>• Basic PLC Architecture and Industrial Logic Implementations</p>
+            </div>
         </section>
 
         <section id="faculty" class="content-section">
-            <h2>Faculty</h2>
+            <h2 style="color: var(--accent);">Faculty & Staff</h2>
             <div class="info-card">
+                <div class="prof-img">👨‍🏫</div>
                 <h3>М. ЦОЛМОН</h3>
-                <p><strong>Laboratory Teacher</strong></p>
-                <p>Ph.D. | +976 9512-9225</p>
-                <p>tsolmon@must.edu.mn</p>
+                <p style="color: var(--accent); font-weight: bold; margin-top: -10px;">Laboratory Teacher</p>
+                <p><strong>Degree:</strong> Ph.D.</p>
+                <p><strong>Email:</strong> tsolmon@must.edu.mn</p>
+                <p><strong>Phone:</strong> +976 9512-9225</p>
             </div>
         </section>
 
         <section id="students" class="content-section">
-            <h2>Students</h2>
-            <div class="info-card">
-                <h3>4th Year: Bato</h3>
-                <h3>3rd Year:</h3>
-                <p>Khudree, Chingun, Otgon-dari, Enhjin.B, Sanchirmaa, Enhjin.E</p>
+            <h2 style="color: var(--accent);">Research Students</h2>
+            <div class="card-grid">
+                <div class="info-card">
+                    <h3>🎓 4th Year Students</h3>
+                    <ul class="student-list"><li>• Bato</li></ul>
+                </div>
+                <div class="info-card">
+                    <h3>🎓 3rd Year Students</h3>
+                    <ul class="student-list">
+                        <li>• Khudree</li><li>• Chingun</li>
+                        <li>• Otgon-dari</li><li>• Enhjin.B</li>
+                        <li>• Sanchirmaa</li><li>• Enhjin.E</li>
+                    </ul>
+                </div>
             </div>
         </section>
     </main>
@@ -130,8 +149,15 @@
                     <canvas id="vision-canvas"></canvas>
                 </div>
                 <div>
-                    <button id="voice-btn" class="btn-ctrl" style="width:100%" onclick="startVoiceRecognition()">🎙️ Voice Control</button>
-                    <div id="terminal-log" class="terminal" style="margin-top:20px;">> System Standby...</div>
+                    <button id="voice-btn" class="btn-ctrl" style="width:100%" onclick="startVoiceRecognition()">🎙️ Start Voice</button>
+                    <div style="display:grid; grid-template-columns: repeat(3, 1fr); gap:8px; margin-top:20px;">
+                        <div></div><button class="btn-ctrl" onclick="sendManual('forward')">▲</button><div></div>
+                        <button class="btn-ctrl" onclick="sendManual('left')">◀</button>
+                        <button class="btn-ctrl" style="background:#e74c3c;" onclick="sendManual('stop')">■</button>
+                        <button class="btn-ctrl" onclick="sendManual('right')">▶</button>
+                        <div></div><button class="btn-ctrl" onclick="sendManual('backward')">▼</button><div></div>
+                    </div>
+                    <div id="terminal-log" class="terminal">> System Standby...</div>
                 </div>
             </div>
         </div>
@@ -141,7 +167,6 @@
         const PI_IP = "192.168.0.161";
         let isDashboardOpen = false;
 
-        // Toggle Hamburger Menu
         function toggleMenu() {
             const sidebar = document.getElementById("sidebar");
             const overlay = document.getElementById("menu-overlay");
@@ -154,19 +179,12 @@
             document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
             document.getElementById(id).classList.add('active');
             document.getElementById('link-' + id).classList.add('active');
-            toggleMenu(); // Auto-close menu after selecting
+            if(window.innerWidth < 768) toggleMenu();
         }
 
-        function openRobotDashboard() { 
-            document.getElementById("robotDashboard").style.display="block";
-            isDashboardOpen = true; 
-        }
-        function closeRobotDashboard() { 
-            document.getElementById("robotDashboard").style.display="none";
-            isDashboardOpen = false; 
-        }
+        function openRobotDashboard() { document.getElementById("robotDashboard").style.display="block"; isDashboardOpen = true; }
+        function closeRobotDashboard() { document.getElementById("robotDashboard").style.display="none"; isDashboardOpen = false; }
 
-        // Previous iRobot & Vision Logic remains here...
         function postCommand(cmd) {
             fetch(`http://${PI_IP}:5000/command`, {
                 method: 'POST',
@@ -177,6 +195,14 @@
                 log.innerHTML += `<div>> ${cmd.toUpperCase()}: ${data.status}</div>`;
                 log.scrollTop = log.scrollHeight;
             }).catch(() => {});
+        }
+        function sendManual(dir) { postCommand(dir); }
+
+        function startVoiceRecognition() {
+            const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+            recognition.lang = 'mn-MN';
+            recognition.onresult = (e) => postCommand(e.results[0][0].transcript);
+            recognition.start();
         }
     </script>
 </body>
